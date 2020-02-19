@@ -3,11 +3,13 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./pages/homepage/homepage.component";
 import NotFound from "./components/not-found/not-found.component";
 import ShopPage from "./pages/shop-page/shop-page.component";
+import NavBar from "./components/header/header.component";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
+      <NavBar />
       <Switch>
         <Route path="/shop" component={ShopPage} />
         <Route path="/not-found" component={NotFound} />
