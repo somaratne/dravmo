@@ -1,0 +1,23 @@
+.row {
+  content: "";
+  display: block;
+  clear: both;
+  width: 114rem;
+  height: 40rem;
+  margin: 0 auto 2rem;
+  padding: 2rem;
+
+  .collection-preview-title {
+    text-transform: uppercase;
+    padding-bottom: 2rem;
+  }
+
+  .col-1-4 {
+    width: calc((100% - (3 * 6rem)) / 4);
+    float: left;
+
+    &:not(:last-child) {
+      margin-right: 6rem;
+    }
+  }
+}
