@@ -1,0 +1,20 @@
+.row {
+  width: 114rem;
+  margin: 0 auto;
+  display: block;
+  content: "";
+  clear: both;
+
+  .col-1-2 {
+    width: calc((100% - 6rem) / 2);
+    float: left;
+
+    &:not(:last-child) {
+      margin-right: 6rem;
+    }
+  }
+
+  .sign-in {
+    width: 90%;
+  }
+}

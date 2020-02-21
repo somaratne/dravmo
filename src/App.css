@@ -21,3 +21,9 @@ a:visited {
   text-decoration: none;
   color: black;
 }
+
+input,
+textarea,
+button {
+  font-family: inherit;
+}
