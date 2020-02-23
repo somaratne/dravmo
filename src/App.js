@@ -5,7 +5,7 @@ import NotFound from "./components/not-found/not-found.component";
 import ShopPage from "./pages/shop-page/shop-page.component";
 import NavBar from "./components/header/header.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
-import { auth } from "./firebase/firebase.utils";
+import { auth, createUserProfileDoc } from "./firebase/firebase.utils";
 import "./App.css";
 
 class App extends React.Component {
@@ -21,8 +21,20 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.unSubscribeAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user });
+    this.unSubscribeAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDoc(userAuth);
+        await userRef.onSnapshot(snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          });
+        });
+      } else {
+        this.setState({ currentUser: userAuth });
+      }
     });
   }
 

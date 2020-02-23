@@ -2,6 +2,7 @@ import React from "react";
 import FormInput from "./../form-input/form-input.component";
 import CustomButton from "./../custom-button/custom-button.component";
 import { signInWithGoogle } from "./../../firebase/firebase.utils";
+import SignUp from "../sign-up/sign-up.component";
 import "./sign-in.styles.scss";
 
 class SignIn extends React.Component {
@@ -56,7 +57,9 @@ class SignIn extends React.Component {
             </form>
           </div>
         </div>
-        <div className="col-1-2">SIGN UP</div>
+        <div className="col-1-2">
+          <SignUp />
+        </div>
       </div>
     );
   }
