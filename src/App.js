@@ -8,6 +8,7 @@ import NavBar from "./components/header/header.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { auth, createUserProfileDoc } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user-reducer/user-action";
+import { selectCurrentUser } from "./redux/user-reducer/user-reselect";
 import "./App.css";
 
 class App extends React.Component {
@@ -65,7 +66,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.user.currentUser
+    currentUser: selectCurrentUser(state)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);
