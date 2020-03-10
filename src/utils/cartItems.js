@@ -1,5 +1,11 @@
 export function addCartItems(list, item) {
-  const noItemExists = list.filter(l => l.id !== item.id);
-  item.quantity ? (item.quantity += 1) : (item.quantity = 1);
-  return [...noItemExists, item];
+  const index = list.indexOf(item);
+  if (index === -1) {
+    item.quantity = 1;
+    return [...list, item];
+  } else {
+    item.quantity += 1;
+    list.splice(index, 1, item);
+    return [...list];
+  }
 }
