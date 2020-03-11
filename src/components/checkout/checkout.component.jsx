@@ -1,9 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { selectCartItem } from "./../../redux/cart-reducer/cart-reselect";
+import {
+  removeItems,
+  increaseItem,
+  decreaseItem
+} from "./../../redux/cart-reducer/cart-action";
 import "./checkout.styles.scss";
 
-const CheckOut = ({ cartItems }) => {
+const CheckOut = ({ cartItems, removeItems, increaseItem, decreaseItem }) => {
   return (
     <div>
       <div className="row">
@@ -23,13 +28,34 @@ const CheckOut = ({ cartItems }) => {
             <div className="inner-div">{item.name}</div>
           </div>
           <div className="col-1-5">
-            <div className="inner-div">{item.quantity}</div>
+            <div className="inner-div">
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => decreaseItem(item)}
+              >
+                &#10094;
+              </span>{" "}
+              {item.quantity}
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => increaseItem(item)}
+              >
+                {" "}
+                &#10095;
+              </span>
+            </div>
           </div>
           <div className="col-1-5">
             <div className="inner-div">{item.price}</div>
           </div>
           <div className="col-1-5">
-            <div className="inner-div">&#10008;</div>
+            <div
+              className="inner-div"
+              style={{ cursor: "pointer" }}
+              onClick={() => removeItems(item)}
+            >
+              &#10008;
+            </div>
           </div>
         </div>
       ))}
@@ -55,4 +81,12 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(CheckOut);
+const mapDispatchToProps = dispatch => {
+  return {
+    removeItems: item => dispatch(removeItems(item)),
+    increaseItem: item => dispatch(increaseItem(item)),
+    decreaseItem: item => dispatch(decreaseItem(item))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckOut);
