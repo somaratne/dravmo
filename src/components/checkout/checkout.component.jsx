@@ -33,6 +33,18 @@ const CheckOut = ({ cartItems }) => {
           </div>
         </div>
       ))}
+      <div className="row">
+        {cartItems.length !== 0 ? (
+          <div className="total col-1-1">
+            Total Price $
+            {cartItems
+              .map(item => item.quantity * item.price)
+              .reduce((acc, c) => acc + c, 0)}
+          </div>
+        ) : (
+          <p>There are no items to show</p>
+        )}
+      </div>
     </div>
   );
 };

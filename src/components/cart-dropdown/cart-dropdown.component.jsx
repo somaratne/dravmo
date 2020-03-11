@@ -4,8 +4,13 @@ import { connect } from "react-redux";
 import CustomButton from "../custom-button/custom-button.component";
 import CartItem from "../cart-item/cart-item.component";
 import "./cart-dropdown.styles.scss";
+import { makeToggle } from "./../../redux/cart-reducer/cart-action";
 
-const CartDropDown = ({ cartItems, history }) => {
+const CartDropDown = ({ cartItems, history, makeToggle, toggleCart }) => {
+  const handleButton = () => {
+    history.push("/checkout");
+    makeToggle(!toggleCart);
+  };
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
@@ -16,9 +21,7 @@ const CartDropDown = ({ cartItems, history }) => {
         )}
       </div>
       {cartItems.length !== 0 ? (
-        <CustomButton onClick={() => history.push("/checkout")}>
-          GO TO CHECKOUT
-        </CustomButton>
+        <CustomButton onClick={handleButton}>GO TO CHECKOUT</CustomButton>
       ) : null}
     </div>
   );
@@ -26,8 +29,17 @@ const CartDropDown = ({ cartItems, history }) => {
 
 const mapStateToProps = state => {
   return {
-    cartItems: state.cart.cartItems
+    cartItems: state.cart.cartItems,
+    toggleCart: state.cart.toggleCart
   };
 };
 
-export default withRouter(connect(mapStateToProps)(CartDropDown));
+const mapDispatchToProps = dispatch => {
+  return {
+    makeToggle: toggle => dispatch(makeToggle(toggle))
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CartDropDown)
+);
